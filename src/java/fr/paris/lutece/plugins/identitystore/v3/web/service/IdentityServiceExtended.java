@@ -38,6 +38,11 @@ import fr.paris.lutece.plugins.identitystore.v3.web.rs.dto.crud.IdentityChangeRe
 import fr.paris.lutece.plugins.identitystore.v3.web.rs.dto.crud.IdentityChangeResponse;
 import fr.paris.lutece.plugins.identitystore.v3.web.rs.dto.merge.IdentityMergeRequest;
 import fr.paris.lutece.plugins.identitystore.v3.web.rs.dto.merge.IdentityMergeResponse;
+import fr.paris.lutece.plugins.identitystore.v3.web.rs.dto.task.IdentityTaskGetResponse;
+import fr.paris.lutece.plugins.identitystore.v3.web.rs.dto.task.IdentityTaskSearchRequest;
+import fr.paris.lutece.plugins.identitystore.v3.web.rs.dto.task.IdentityTaskSearchResponse;
+import fr.paris.lutece.plugins.identitystore.v3.web.rs.dto.task.IdentityTaskUpdateStatusRequest;
+import fr.paris.lutece.plugins.identitystore.v3.web.rs.dto.task.IdentityTaskUpdateStatusResponse;
 import fr.paris.lutece.plugins.identitystore.web.exception.IdentityStoreException;
 
 public class IdentityServiceExtended extends IdentityService
@@ -124,6 +129,46 @@ public class IdentityServiceExtended extends IdentityService
             throws IdentityStoreException
     {
         return _transportProvider.uncertifyIdentity( strCustomerId, strClientCode, author );
+    }
+
+    /**
+     * Update the {@link fr.paris.lutece.plugins.identitystore.v3.web.rs.dto.task.IdentityTaskStatusType} of the task.
+     * @param request the task status update request
+     * @param taskCode the code of the task returned at creation time
+     * @param strClientCode the client code calling the request
+     * @param author the author of the request
+     * @return an {@link IdentityTaskUpdateStatusResponse}
+     * @throws IdentityStoreException in case of error
+     */
+    public IdentityTaskUpdateStatusResponse updateIdentityTaskStatus(final String taskCode, final IdentityTaskUpdateStatusRequest request, final String strClientCode, final RequestAuthor author ) throws IdentityStoreException
+    {
+        return _transportProvider.updateIdentityTaskStatus( taskCode, request, strClientCode, author );
+    }
+
+    /**
+     * Get the task.
+     * @param taskCode the code of the task returned at creation time
+     * @param strClientCode the client code calling the request
+     * @param author the author of the request
+     * @return an {@link IdentityTaskGetResponse}
+     * @throws IdentityStoreException in case of error
+     */
+    public IdentityTaskGetResponse getIdentityTask( final String taskCode, final String strClientCode, final RequestAuthor author ) throws IdentityStoreException
+    {
+        return _transportProvider.getIdentityTask( taskCode, strClientCode, author );
+    }
+
+    /**
+     * Search for tasks.
+     * @param request the search request
+     * @param strClientCode the client code calling the request
+     * @param author the author of the request
+     * @return an {@link IdentityTaskSearchResponse}
+     * @throws IdentityStoreException in case of error
+     */
+    public IdentityTaskSearchResponse searchIdentityTasks(final IdentityTaskSearchRequest request, final String strClientCode, final RequestAuthor author ) throws IdentityStoreException
+    {
+        return _transportProvider.searchIdentityTasks( request, strClientCode, author );
     }
 
 }
