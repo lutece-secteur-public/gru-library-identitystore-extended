@@ -40,7 +40,6 @@ import fr.paris.lutece.plugins.identitystore.v3.web.rs.dto.referentiel.Processus
 import fr.paris.lutece.plugins.identitystore.v3.web.rs.util.Constants;
 import fr.paris.lutece.plugins.identitystore.v3.web.service.IHttpTransportProvider;
 import fr.paris.lutece.plugins.identitystore.v3.web.service.IReferentialTransportProvider;
-import fr.paris.lutece.plugins.identitystore.v3.web.utils.LibConstants;
 import fr.paris.lutece.plugins.identitystore.web.exception.IdentityStoreException;
 
 import java.util.HashMap;
@@ -50,6 +49,7 @@ public class ReferentialTransportRest extends AbstractTransportRest implements I
 {
     /** URL for identityStore REST service */
     private final String _strIdentityStoreEndPoint;
+    private final String _strIdentityPath;
 
     /**
      * Constructor with IHttpTransportProvider parameter
@@ -62,6 +62,21 @@ public class ReferentialTransportRest extends AbstractTransportRest implements I
         super( httpTransport );
 
         _strIdentityStoreEndPoint = httpTransport.getApiEndPointUrl( );
+        _strIdentityPath = Constants.CONSTANT_DEFAULT_IDENTITY_PATH;
+    }
+
+    /**
+     * Constructor with IHttpTransportProvider parameter
+     *
+     * @param httpTransport
+     *            the provider to use
+     */
+    public ReferentialTransportRest( final IHttpTransportProvider httpTransport, String strIdentityPath )
+    {
+        super( httpTransport );
+
+        _strIdentityStoreEndPoint = httpTransport.getApiEndPointUrl( );
+        _strIdentityPath = strIdentityPath;
     }
 
     @Override
@@ -74,7 +89,7 @@ public class ReferentialTransportRest extends AbstractTransportRest implements I
         mapHeadersRequest.put( Constants.PARAM_AUTHOR_NAME, author.getName( ) );
         mapHeadersRequest.put( Constants.PARAM_AUTHOR_TYPE, author.getType( ).name( ) );
 
-        final String url = _strIdentityStoreEndPoint + LibConstants.IDENTITYSTORE_BASE_PATH + Constants.VERSION_PATH_V3 + Constants.REFERENTIAL_PATH + Constants.REFERENTIAL_PROCESSUS_PATH;
+        final String url = _strIdentityStoreEndPoint + _strIdentityPath + Constants.VERSION_PATH_V3 + Constants.REFERENTIAL_PATH + Constants.REFERENTIAL_PROCESSUS_PATH;
         return _httpTransport.doGet( url, null, mapHeadersRequest, ProcessusSearchResponse.class, _mapper );
     }
 
@@ -88,7 +103,7 @@ public class ReferentialTransportRest extends AbstractTransportRest implements I
         mapHeadersRequest.put( Constants.PARAM_AUTHOR_NAME, author.getName( ) );
         mapHeadersRequest.put( Constants.PARAM_AUTHOR_TYPE, author.getType( ).name( ) );
 
-        final String url = _strIdentityStoreEndPoint + LibConstants.IDENTITYSTORE_BASE_PATH + Constants.VERSION_PATH_V3 + Constants.REFERENTIAL_PATH + Constants.REFERENTIAL_LEVEL_PATH;
+        final String url = _strIdentityStoreEndPoint + _strIdentityPath + Constants.VERSION_PATH_V3 + Constants.REFERENTIAL_PATH + Constants.REFERENTIAL_LEVEL_PATH;
         return _httpTransport.doGet( url, null, mapHeadersRequest, LevelSearchResponse.class, _mapper );
     }
 
@@ -102,7 +117,7 @@ public class ReferentialTransportRest extends AbstractTransportRest implements I
         mapHeadersRequest.put( Constants.PARAM_AUTHOR_NAME, author.getName( ) );
         mapHeadersRequest.put( Constants.PARAM_AUTHOR_TYPE, author.getType( ).name( ) );
 
-        final String url = _strIdentityStoreEndPoint + LibConstants.IDENTITYSTORE_BASE_PATH + Constants.VERSION_PATH_V3 + Constants.REFERENTIAL_PATH + Constants.REFERENTIAL_ATTRIBUTE_KEYS_PATH;
+        final String url = _strIdentityStoreEndPoint + _strIdentityPath + Constants.VERSION_PATH_V3 + Constants.REFERENTIAL_PATH + Constants.REFERENTIAL_ATTRIBUTE_KEYS_PATH;
         return _httpTransport.doGet( url, null, mapHeadersRequest, AttributeSearchResponse.class, _mapper );
     }
 }
