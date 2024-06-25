@@ -155,8 +155,10 @@ public class IdentityServiceExtended extends IdentityService
      */
     public IdentityTaskGetResponse getIdentityTask( final String taskCode, final String strClientCode, final RequestAuthor author ) throws IdentityStoreException
     {
-        return _transportProvider.getIdentityTask( taskCode, strClientCode, author );
+        return _transportProvider.getIdentityTaskList( taskCode, strClientCode, author );
     }
+
+
 
     /**
      * Search for tasks.
