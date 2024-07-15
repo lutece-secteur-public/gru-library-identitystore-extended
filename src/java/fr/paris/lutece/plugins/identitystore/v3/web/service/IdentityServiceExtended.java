@@ -36,6 +36,7 @@ package fr.paris.lutece.plugins.identitystore.v3.web.service;
 import fr.paris.lutece.plugins.identitystore.v3.web.rs.dto.common.RequestAuthor;
 import fr.paris.lutece.plugins.identitystore.v3.web.rs.dto.crud.IdentityChangeRequest;
 import fr.paris.lutece.plugins.identitystore.v3.web.rs.dto.crud.IdentityChangeResponse;
+import fr.paris.lutece.plugins.identitystore.v3.web.rs.dto.crud.UncertifyIdentityRequest;
 import fr.paris.lutece.plugins.identitystore.v3.web.rs.dto.merge.IdentityMergeRequest;
 import fr.paris.lutece.plugins.identitystore.v3.web.rs.dto.merge.IdentityMergeResponse;
 import fr.paris.lutece.plugins.identitystore.v3.web.rs.dto.task.IdentityTaskGetResponse;
@@ -115,7 +116,8 @@ public class IdentityServiceExtended extends IdentityService
      * Dé-certification d'une identité.<br/>
      * Une identité ne pouvant pas posséder d'attributs non-certifiés, une dé-certification implique la certification de ses attributs avec le processus défini
      * par la property : <code>identitystore.identity.uncertify.processus</code> (par défaut : "dec", qui correspond au niveau le plus faible de certification
-     * (auto-déclaratif))
+     * (auto-déclaratif))<br/>
+     * Tous les attributs de l'identité seront dé-certifiés.
      *
      * @param strCustomerId
      *            the customer ID
@@ -129,6 +131,29 @@ public class IdentityServiceExtended extends IdentityService
             throws IdentityStoreException
     {
         return _transportProvider.uncertifyIdentity( strCustomerId, strClientCode, author );
+    }
+
+    /**
+     * Dé-certification d'une identité.<br/>
+     * Une identité ne pouvant pas posséder d'attributs non-certifiés, une dé-certification implique la certification de ses attributs avec le processus défini
+     * par la property : <code>identitystore.identity.uncertify.processus</code> (par défaut : "dec", qui correspond au niveau le plus faible de certification
+     * (auto-déclaratif)).<br/>
+     * Seuls les attributs présents dans la requête seront dé-certifiés. Si la requête est vide ou null, tous les attributs seront dé-certifiés.
+     *
+     * @param request
+     *            the uncertify request
+     * @param strCustomerId
+     *            the customer ID
+     * @param strClientCode
+     *            client code of calling application
+     * @param author
+     *            the author of the request
+     * @return IdentityChangeResponse
+     */
+    public IdentityChangeResponse uncertifyIdentity(final UncertifyIdentityRequest request, final String strCustomerId, final String strClientCode, final RequestAuthor author)
+            throws IdentityStoreException
+    {
+        return _transportProvider.uncertifyIdentity( request, strCustomerId, strClientCode, author );
     }
 
     /**
