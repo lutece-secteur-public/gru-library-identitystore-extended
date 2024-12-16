@@ -40,6 +40,7 @@ import fr.paris.lutece.plugins.identitystore.v3.web.rs.dto.crud.UncertifyIdentit
 import fr.paris.lutece.plugins.identitystore.v3.web.rs.dto.merge.IdentityMergeRequest;
 import fr.paris.lutece.plugins.identitystore.v3.web.rs.dto.merge.IdentityMergeResponse;
 import fr.paris.lutece.plugins.identitystore.v3.web.rs.dto.task.IdentityTaskGetResponse;
+import fr.paris.lutece.plugins.identitystore.v3.web.rs.dto.task.IdentityTaskListGetResponse;
 import fr.paris.lutece.plugins.identitystore.v3.web.rs.dto.task.IdentityTaskSearchRequest;
 import fr.paris.lutece.plugins.identitystore.v3.web.rs.dto.task.IdentityTaskSearchResponse;
 import fr.paris.lutece.plugins.identitystore.v3.web.rs.dto.task.IdentityTaskUpdateStatusRequest;
@@ -181,6 +182,19 @@ public class IdentityServiceExtended extends IdentityService
     public IdentityTaskGetResponse getIdentityTask( final String taskCode, final String strClientCode, final RequestAuthor author ) throws IdentityStoreException
     {
         return _transportProvider.getIdentityTaskList( taskCode, strClientCode, author );
+    }
+
+    /**
+     * Get the task.
+     * @param secondaryCuid the code of the task returned at creation time
+     * @param strClientCode the client code calling the request
+     * @param author the author of the request
+     * @return an {@link IdentityTaskGetResponse}
+     * @throws IdentityStoreException in case of error
+     */
+    public IdentityTaskListGetResponse getIdentityTaskBySecondaryCuid(final String secondaryCuid, final String strClientCode, final RequestAuthor author ) throws IdentityStoreException
+    {
+        return _transportProvider.getIdentityTaskListBySecondaryCuid( secondaryCuid, strClientCode, author );
     }
 
 
