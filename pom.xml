@@ -3,20 +3,18 @@
     <parent>
         <artifactId>lutece-global-pom</artifactId>
         <groupId>fr.paris.lutece.tools</groupId>
-        <version>7.0.2</version>
+        <version>8.0.0-SNAPSHOT</version>
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
     <groupId>fr.paris.lutece.plugins</groupId>
     <artifactId>library-identitystore-extended</artifactId>
     <packaging>jar</packaging>
-    <version>1.1.2-SNAPSHOT</version>
+    <version>2.0.0-SNAPSHOT</version>
     <name>Lutece identitystore library Extended</name>
 
     <properties>
         <componentName>GRU Library Identity Store Extended</componentName>
-        <jiraProjectName>LIBRARYIDENTITYSTOREEXTENDED</jiraProjectName>
-        <jiraComponentId />
     </properties>
 
     <repositories>
@@ -32,7 +30,7 @@
         <dependency>
             <groupId>fr.paris.lutece.plugins</groupId>
             <artifactId>library-identitystore</artifactId>
-            <version>[3.2.1-SNAPSHOT,3.9.9)</version>
+            <version>[4.0.0-SNAPSHOT,)</version>
             <type>jar</type>
         </dependency>
     </dependencies>

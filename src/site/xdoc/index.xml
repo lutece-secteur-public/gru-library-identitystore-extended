@@ -136,8 +136,10 @@
                     <div class="source">
                         <pre>
 import fr.paris.lutece.plugins.identitystore.v3.web.service.IdentityServiceExtended;
+import jakarta.inject.Inject;
 ...
-private IdentityServiceExtended _identityServiceExt = SpringContextService.getBean( "identity.identityServiceExtended" );
+@Inject
+private IdentityServiceExtended _identityServiceExt;
                         </pre>
                     </div>
                 </p>
